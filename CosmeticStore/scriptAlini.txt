@@ -1,0 +1,295 @@
+USE [alina3511]
+GO
+/****** Object:  Table [dbo].[Order]    Script Date: 19.12.2024 1:36:05 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Order](
+	[OrderId] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [int] NULL,
+	[OrderStatus] [nvarchar](max) NOT NULL,
+	[OrderDeliveryDate] [datetime] NOT NULL,
+	[OrderPickupCode] [int] NOT NULL,
+	[OrderDate] [datetime] NOT NULL,
+	[OrderPickupPointId] [int] NOT NULL,
+ CONSTRAINT [PK__Order__C3905BAF76FFE74C] PRIMARY KEY CLUSTERED 
+(
+	[OrderId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[OrderProduct]    Script Date: 19.12.2024 1:36:05 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[OrderProduct](
+	[OrderId] [int] NOT NULL,
+	[ProductArticleNumber] [nvarchar](100) NOT NULL,
+	[ProductAmount] [int] NOT NULL,
+ CONSTRAINT [PK__OrderPro__817A2662FACDB5BE] PRIMARY KEY CLUSTERED 
+(
+	[OrderId] ASC,
+	[ProductArticleNumber] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[PickupPoint]    Script Date: 19.12.2024 1:36:05 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[PickupPoint](
+	[PickupPointId] [int] IDENTITY(1,1) NOT NULL,
+	[ZipCode] [int] NULL,
+	[Address] [nvarchar](500) NULL,
+ CONSTRAINT [PK_PickupPoint] PRIMARY KEY CLUSTERED 
+(
+	[PickupPointId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Product]    Script Date: 19.12.2024 1:36:05 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Product](
+	[ProductArticleNumber] [nvarchar](100) NOT NULL,
+	[ProductName] [nvarchar](max) NOT NULL,
+	[ProductDescription] [nvarchar](max) NOT NULL,
+	[ProductCategory] [nvarchar](max) NOT NULL,
+	[ProductPhoto] [image] NULL,
+	[ProductManufacturer] [nvarchar](max) NOT NULL,
+	[ProductCost] [decimal](19, 4) NOT NULL,
+	[ProductDiscountAmount] [tinyint] NULL,
+	[ProductQuantityInStock] [int] NOT NULL,
+	[ProductStatus] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK__Product__2EA7DCD59C4791C1] PRIMARY KEY CLUSTERED 
+(
+	[ProductArticleNumber] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Role]    Script Date: 19.12.2024 1:36:05 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Role](
+	[RoleId] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](30) NOT NULL,
+ CONSTRAINT [PK_Role] PRIMARY KEY CLUSTERED 
+(
+	[RoleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[User]    Script Date: 19.12.2024 1:36:05 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[User](
+	[UserId] [int] IDENTITY(1,1) NOT NULL,
+	[Surname] [nvarchar](30) NOT NULL,
+	[Name] [nvarchar](30) NOT NULL,
+	[Patronymic] [nvarchar](30) NULL,
+	[Login] [nvarchar](50) NOT NULL,
+	[Password] [nvarchar](50) NOT NULL,
+	[RoleId] [int] NOT NULL,
+ CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Order] ON 
+
+INSERT [dbo].[Order] ([OrderId], [UserId], [OrderStatus], [OrderDeliveryDate], [OrderPickupCode], [OrderDate], [OrderPickupPointId]) VALUES (1, 1, N'Новый ', CAST(N'2022-05-10T00:00:00.000' AS DateTime), 201, CAST(N'2022-05-04T00:00:00.000' AS DateTime), 24)
+INSERT [dbo].[Order] ([OrderId], [UserId], [OrderStatus], [OrderDeliveryDate], [OrderPickupCode], [OrderDate], [OrderPickupPointId]) VALUES (2, NULL, N'Новый ', CAST(N'2022-05-11T00:00:00.000' AS DateTime), 202, CAST(N'2022-05-05T00:00:00.000' AS DateTime), 25)
+INSERT [dbo].[Order] ([OrderId], [UserId], [OrderStatus], [OrderDeliveryDate], [OrderPickupCode], [OrderDate], [OrderPickupPointId]) VALUES (3, 2, N'Новый ', CAST(N'2022-05-12T00:00:00.000' AS DateTime), 203, CAST(N'2022-05-06T00:00:00.000' AS DateTime), 26)
+INSERT [dbo].[Order] ([OrderId], [UserId], [OrderStatus], [OrderDeliveryDate], [OrderPickupCode], [OrderDate], [OrderPickupPointId]) VALUES (4, NULL, N'Новый ', CAST(N'2022-05-13T00:00:00.000' AS DateTime), 204, CAST(N'2022-05-07T00:00:00.000' AS DateTime), 27)
+INSERT [dbo].[Order] ([OrderId], [UserId], [OrderStatus], [OrderDeliveryDate], [OrderPickupCode], [OrderDate], [OrderPickupPointId]) VALUES (5, 3, N'Новый ', CAST(N'2022-05-14T00:00:00.000' AS DateTime), 205, CAST(N'2022-05-08T00:00:00.000' AS DateTime), 28)
+INSERT [dbo].[Order] ([OrderId], [UserId], [OrderStatus], [OrderDeliveryDate], [OrderPickupCode], [OrderDate], [OrderPickupPointId]) VALUES (6, NULL, N'Новый ', CAST(N'2022-05-15T00:00:00.000' AS DateTime), 206, CAST(N'2022-05-09T00:00:00.000' AS DateTime), 29)
+INSERT [dbo].[Order] ([OrderId], [UserId], [OrderStatus], [OrderDeliveryDate], [OrderPickupCode], [OrderDate], [OrderPickupPointId]) VALUES (7, NULL, N'Новый ', CAST(N'2022-05-16T00:00:00.000' AS DateTime), 207, CAST(N'2022-05-10T00:00:00.000' AS DateTime), 30)
+INSERT [dbo].[Order] ([OrderId], [UserId], [OrderStatus], [OrderDeliveryDate], [OrderPickupCode], [OrderDate], [OrderPickupPointId]) VALUES (8, NULL, N'Новый ', CAST(N'2022-05-17T00:00:00.000' AS DateTime), 208, CAST(N'2022-05-11T00:00:00.000' AS DateTime), 31)
+INSERT [dbo].[Order] ([OrderId], [UserId], [OrderStatus], [OrderDeliveryDate], [OrderPickupCode], [OrderDate], [OrderPickupPointId]) VALUES (9, 4, N'Новый ', CAST(N'2022-05-18T00:00:00.000' AS DateTime), 209, CAST(N'2022-05-12T00:00:00.000' AS DateTime), 32)
+INSERT [dbo].[Order] ([OrderId], [UserId], [OrderStatus], [OrderDeliveryDate], [OrderPickupCode], [OrderDate], [OrderPickupPointId]) VALUES (10, NULL, N'Завершен', CAST(N'2022-05-19T00:00:00.000' AS DateTime), 210, CAST(N'2022-05-13T00:00:00.000' AS DateTime), 33)
+SET IDENTITY_INSERT [dbo].[Order] OFF
+GO
+INSERT [dbo].[OrderProduct] ([OrderId], [ProductArticleNumber], [ProductAmount]) VALUES (1, N'F893T5', 2)
+INSERT [dbo].[OrderProduct] ([OrderId], [ProductArticleNumber], [ProductAmount]) VALUES (1, N'А112Т4', 2)
+INSERT [dbo].[OrderProduct] ([OrderId], [ProductArticleNumber], [ProductAmount]) VALUES (2, N'E530Y6', 1)
+INSERT [dbo].[OrderProduct] ([OrderId], [ProductArticleNumber], [ProductAmount]) VALUES (2, N'F346G5', 2)
+INSERT [dbo].[OrderProduct] ([OrderId], [ProductArticleNumber], [ProductAmount]) VALUES (3, N'D344Y7', 2)
+INSERT [dbo].[OrderProduct] ([OrderId], [ProductArticleNumber], [ProductAmount]) VALUES (3, N'J432E4', 1)
+INSERT [dbo].[OrderProduct] ([OrderId], [ProductArticleNumber], [ProductAmount]) VALUES (4, N'D378D3', 2)
+INSERT [dbo].[OrderProduct] ([OrderId], [ProductArticleNumber], [ProductAmount]) VALUES (4, N'E245R5', 1)
+INSERT [dbo].[OrderProduct] ([OrderId], [ProductArticleNumber], [ProductAmount]) VALUES (5, N'H732R5', 3)
+INSERT [dbo].[OrderProduct] ([OrderId], [ProductArticleNumber], [ProductAmount]) VALUES (5, N'R464G6', 2)
+INSERT [dbo].[OrderProduct] ([OrderId], [ProductArticleNumber], [ProductAmount]) VALUES (6, N'E573G6', 3)
+INSERT [dbo].[OrderProduct] ([OrderId], [ProductArticleNumber], [ProductAmount]) VALUES (6, N'K535G6', 3)
+INSERT [dbo].[OrderProduct] ([OrderId], [ProductArticleNumber], [ProductAmount]) VALUES (7, N'F344S4', 6)
+INSERT [dbo].[OrderProduct] ([OrderId], [ProductArticleNumber], [ProductAmount]) VALUES (7, N'G532R5', 5)
+INSERT [dbo].[OrderProduct] ([OrderId], [ProductArticleNumber], [ProductAmount]) VALUES (8, N'D526R4', 5)
+INSERT [dbo].[OrderProduct] ([OrderId], [ProductArticleNumber], [ProductAmount]) VALUES (8, N'S753T5', 4)
+INSERT [dbo].[OrderProduct] ([OrderId], [ProductArticleNumber], [ProductAmount]) VALUES (9, N'A436H7', 3)
+INSERT [dbo].[OrderProduct] ([OrderId], [ProductArticleNumber], [ProductAmount]) VALUES (9, N'V472S3', 3)
+INSERT [dbo].[OrderProduct] ([OrderId], [ProductArticleNumber], [ProductAmount]) VALUES (10, N'E479G6', 1)
+INSERT [dbo].[OrderProduct] ([OrderId], [ProductArticleNumber], [ProductAmount]) VALUES (10, N'O875F6', 4)
+GO
+SET IDENTITY_INSERT [dbo].[PickupPoint] ON 
+
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (1, 344288, N' г. Ангарск, ул. Чехова, 1')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (2, 614164, N' г.Ангарск,  ул. Степная, 30')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (3, 394242, N' г. Ангарск, ул. Коммунистическая, 43')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (4, 660540, N' г. Ангарск, ул. Солнечная, 25')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (5, 125837, N' г. Ангарск, ул. Шоссейная, 40')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (6, 125703, N' г. Ангарск, ул. Партизанская, 49')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (7, 625283, N' г. Ангарск, ул. Победы, 46')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (8, 614611, N' г. Ангарск, ул. Молодежная, 50')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (9, 454311, N' г.Ангарск, ул. Новая, 19')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (10, 660007, N' г.Ангарск, ул. Октябрьская, 19')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (11, 603036, N' г. Ангарск, ул. Садовая, 4')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (12, 450983, N' г.Ангарск, ул. Комсомольская, 26')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (13, 394782, N' г. Ангарск, ул. Чехова, 3')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (14, 603002, N' г. Ангарск, ул. Дзержинского, 28')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (15, 450558, N' г. Ангарск, ул. Набережная, 30')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (16, 394060, N' г.Ангарск, ул. Фрунзе, 43')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (17, 410661, N' г. Ангарск, ул. Школьная, 50')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (18, 625590, N' г. Ангарск, ул. Коммунистическая, 20')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (19, 625683, N' г. Ангарск, ул. 8 Марта')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (20, 400562, N' г. Ангарск, ул. Зеленая, 32')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (21, 614510, N' г. Ангарск, ул. Маяковского, 47')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (22, 410542, N' г. Ангарск, ул. Светлая, 46')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (23, 620839, N' г. Ангарск, ул. Цветочная, 8')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (24, 443890, N' г. Ангарск, ул. Коммунистическая, 1')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (25, 603379, N' г. Ангарск, ул. Спортивная, 46')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (26, 603721, N' г. Ангарск, ул. Гоголя, 41')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (27, 410172, N' г. Ангарск, ул. Северная, 13')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (28, 420151, N' г. Ангарск, ул. Вишневая, 32')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (29, 125061, N' г. Ангарск, ул. Подгорная, 8')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (30, 630370, N' г. Ангарск, ул. Шоссейная, 24')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (31, 614753, N' г. Ангарск, ул. Полевая, 35')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (32, 426030, N' г. Ангарск, ул. Маяковского, 44')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (33, 450375, N' г. Ангарск ул. Клубная, 44')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (34, 625560, N' г. Ангарск, ул. Некрасова, 12')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (35, 630201, N' г. Ангарск, ул. Комсомольская, 17')
+INSERT [dbo].[PickupPoint] ([PickupPointId], [ZipCode], [Address]) VALUES (36, 190949, N' г. Ангарск, ул. Мичурина, 26')
+SET IDENTITY_INSERT [dbo].[PickupPoint] OFF
+GO
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductDescription], [ProductCategory], [ProductPhoto], [ProductManufacturer], [ProductCost], [ProductDiscountAmount], [ProductQuantityInStock], [ProductStatus]) VALUES (N'A436H7', N'Chanel No. 5', N'Легендарный женский парфюм с нежными нотами цветов и ванили.', N'Парфюмерия', NULL, N'Chanel', CAST(2399.0000 AS Decimal(19, 4)), 99, 16, N'В наличии')
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductDescription], [ProductCategory], [ProductPhoto], [ProductManufacturer], [ProductCost], [ProductDiscountAmount], [ProductQuantityInStock], [ProductStatus]) VALUES (N'D344Y7', N'MAC Studio Fix Fluid Foundation', N'Тональный крем с максимальным покрытием и матовым финишем.', N'Косметика', NULL, N'MAC', CAST(31999.0000 AS Decimal(19, 4)), 13, 47, N'В наличии')
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductDescription], [ProductCategory], [ProductPhoto], [ProductManufacturer], [ProductCost], [ProductDiscountAmount], [ProductQuantityInStock], [ProductStatus]) VALUES (N'D378D3', N'Dior Lip Glow', N'Уникальный бальзам для губ, который меняет свой оттенок под воздействием pH кожи.', N'Косметика', NULL, N'Dior', CAST(12799.0000 AS Decimal(19, 4)), 18, 266, N'В наличии')
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductDescription], [ProductCategory], [ProductPhoto], [ProductManufacturer], [ProductCost], [ProductDiscountAmount], [ProductQuantityInStock], [ProductStatus]) VALUES (N'D526R4', N'Yves Saint Laurent Black Opium', N'Соблазнительный женский парфюм с нотами кофе и ванили.
+', N'Парфюмерия', NULL, N'YSL', CAST(1499.0000 AS Decimal(19, 4)), 45, 84, N'В наличии')
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductDescription], [ProductCategory], [ProductPhoto], [ProductManufacturer], [ProductCost], [ProductDiscountAmount], [ProductQuantityInStock], [ProductStatus]) VALUES (N'E245R5', N'Anastasia Beverly Hills Modern Renaissance Eyeshadow Palette', N'Палетка теней для век с нюдовыми и яркими оттенками.', N'Косметика', NULL, N'ABH', CAST(16099.0000 AS Decimal(19, 4)), 18, 100, N'В наличии')
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductDescription], [ProductCategory], [ProductPhoto], [ProductManufacturer], [ProductCost], [ProductDiscountAmount], [ProductQuantityInStock], [ProductStatus]) VALUES (N'E479G6', N'Gucci Bloom', N'Женский парфюм с нотами жасмина, туберозы и розы.', N'Парфюмерия', NULL, N'Gucci', CAST(1099.0000 AS Decimal(19, 4)), 0, 0, N'Нет в наличии')
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductDescription], [ProductCategory], [ProductPhoto], [ProductManufacturer], [ProductCost], [ProductDiscountAmount], [ProductQuantityInStock], [ProductStatus]) VALUES (N'E530Y6', N'Huda Beauty FauxFilter Foundation', N'Плотное покрывающее тональное средство, создающее идеальный макияж.', N'Косметика', NULL, N'Huda Beauty', CAST(4899.0000 AS Decimal(19, 4)), 7, 20, N'В наличии')
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductDescription], [ProductCategory], [ProductPhoto], [ProductManufacturer], [ProductCost], [ProductDiscountAmount], [ProductQuantityInStock], [ProductStatus]) VALUES (N'E573G6', N'Marc Jacobs Daisy', N'Свежий и цветочный женский аромат, вдохновленный летними цветами.', N'Парфюмерия', NULL, N'Marc Jacobs', CAST(41999.0000 AS Decimal(19, 4)), 40, 41, N'В наличии')
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductDescription], [ProductCategory], [ProductPhoto], [ProductManufacturer], [ProductCost], [ProductDiscountAmount], [ProductQuantityInStock], [ProductStatus]) VALUES (N'F344S4', N'Fenty Beauty Gloss Bomb Universal Lip Luminizer', N'Ультра-глянцевый блеск для губ с мягкой текстурой и ярким оттенком.', N'Косметика', NULL, N'Fenty Beauty', CAST(9999.0000 AS Decimal(19, 4)), 25, 18, N'В наличии')
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductDescription], [ProductCategory], [ProductPhoto], [ProductManufacturer], [ProductCost], [ProductDiscountAmount], [ProductQuantityInStock], [ProductStatus]) VALUES (N'F346G5', N'Dolce & Gabbana Light Blue', N'Легкий и свежий аромат с нотами цитрусовых и арбуза.', N'Парфюмерия', NULL, N'Dolce & Gabbana', CAST(1499.0000 AS Decimal(19, 4)), 11, 45, N'В наличии')
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductDescription], [ProductCategory], [ProductPhoto], [ProductManufacturer], [ProductCost], [ProductDiscountAmount], [ProductQuantityInStock], [ProductStatus]) VALUES (N'F893T5', N'NARS Radiant Creamy Concealer', N'Консилер с легкой текстурой и высоким покрытием для идеального макияжа.', N'Косметика', NULL, N'NARS', CAST(6499.0000 AS Decimal(19, 4)), 6, 19, N'В наличии')
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductDescription], [ProductCategory], [ProductPhoto], [ProductManufacturer], [ProductCost], [ProductDiscountAmount], [ProductQuantityInStock], [ProductStatus]) VALUES (N'G532R5', N'Lancome La Vie Est Belle', N'Женский парфюм с нотами ириса, жасмина и апельсина.', N'Парфюмерия', NULL, N'Lancome', CAST(47199.0000 AS Decimal(19, 4)), 40, 56, N'В наличии')
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductDescription], [ProductCategory], [ProductPhoto], [ProductManufacturer], [ProductCost], [ProductDiscountAmount], [ProductQuantityInStock], [ProductStatus]) VALUES (N'H732R5', N'Urban Decay Naked Heat Eyeshadow Palette', N'Палетка с теплыми оттенками теней для создания пылких образов.', N'Косметика', NULL, N'Urban Decay', CAST(32199.0000 AS Decimal(19, 4)), 18, 410, N'В наличии')
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductDescription], [ProductCategory], [ProductPhoto], [ProductManufacturer], [ProductCost], [ProductDiscountAmount], [ProductQuantityInStock], [ProductStatus]) VALUES (N'J432E4', N'Tom Ford Black Orchid', N'Интенсивный и загадочный женский аромат с нотами туберозы и пачули.', N'Парфюмерия', NULL, N'Tom Ford', CAST(4899.0000 AS Decimal(19, 4)), 12, 150, N'В наличии')
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductDescription], [ProductCategory], [ProductPhoto], [ProductManufacturer], [ProductCost], [ProductDiscountAmount], [ProductQuantityInStock], [ProductStatus]) VALUES (N'K535G6', N'Too Faced Better Than Sex Mascara', N'Тушь для ресниц с объемным эффектом и длительным держанием.', N'Косметика', NULL, N'Too Faced
+', CAST(65099.0000 AS Decimal(19, 4)), 20, 88, N'В наличии')
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductDescription], [ProductCategory], [ProductPhoto], [ProductManufacturer], [ProductCost], [ProductDiscountAmount], [ProductQuantityInStock], [ProductStatus]) VALUES (N'O875F6', N'Viktor & Rolf Flowerbomb', N'Сладкий и яркий аромат с нотами цветов, сахара и пачули.', N'Парфюмерия', NULL, N'Viktor & Rolf', CAST(2799.0000 AS Decimal(19, 4)), 30, 41, N'В наличии')
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductDescription], [ProductCategory], [ProductPhoto], [ProductManufacturer], [ProductCost], [ProductDiscountAmount], [ProductQuantityInStock], [ProductStatus]) VALUES (N'R464G6', N'Benefit Hoola Matte Bronzer', N'Матовый бронзер для создания скульптуры и загара на лице.', N'Косметика', NULL, N'Benefit', CAST(12599.0000 AS Decimal(19, 4)), 18, 11, N'В наличии')
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductDescription], [ProductCategory], [ProductPhoto], [ProductManufacturer], [ProductCost], [ProductDiscountAmount], [ProductQuantityInStock], [ProductStatus]) VALUES (N'S753T5', N'Chloe Eau de Parfum', N'Легкий и воздушный женский аромат с нотами розы и фрезии.', N'Парфюмерия', NULL, N'Chloe', CAST(1099.0000 AS Decimal(19, 4)), 45, 83, N'В наличии')
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductDescription], [ProductCategory], [ProductPhoto], [ProductManufacturer], [ProductCost], [ProductDiscountAmount], [ProductQuantityInStock], [ProductStatus]) VALUES (N'V472S3', N'Tarte Shape Tape Concealer', N'Консилер с высоким покрытием и легкой текстурой для совершенного макияжа.', N'Косметика', NULL, N'Tarte', CAST(1999.0000 AS Decimal(19, 4)), 45, 75, N'В наличии')
+INSERT [dbo].[Product] ([ProductArticleNumber], [ProductName], [ProductDescription], [ProductCategory], [ProductPhoto], [ProductManufacturer], [ProductCost], [ProductDiscountAmount], [ProductQuantityInStock], [ProductStatus]) VALUES (N'А112Т4', N'Giorgio Armani Si Passione', N'Страстный и чувственный женский аромат с нотами красной смородины и розы.', N'Парфюмерия', NULL, N'Giorgio Armani', CAST(1299.0000 AS Decimal(19, 4)), 5, 10, N'В наличии')
+GO
+SET IDENTITY_INSERT [dbo].[Role] ON 
+
+INSERT [dbo].[Role] ([RoleId], [Name]) VALUES (1, N'Менеджер')
+INSERT [dbo].[Role] ([RoleId], [Name]) VALUES (2, N'Клиент')
+INSERT [dbo].[Role] ([RoleId], [Name]) VALUES (3, N'Администратор')
+SET IDENTITY_INSERT [dbo].[Role] OFF
+GO
+SET IDENTITY_INSERT [dbo].[User] ON 
+
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (1, N'Константинова ', N'Вероника', N'Агафоновна', N'loginDEsgg2018', N'qhgYnW', 1)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (2, N'Меркушев ', N'Мартын', N'Федотович', N'loginDEdcd2018', N'LxR6YI', 2)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (3, N'Казаков ', N'Федот', N'Кондратович', N'loginDEisg2018', N'Cp8ddU', 1)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (4, N'Карпов ', N'Улеб', N'Леонидович', N'loginDEcph2018', N'7YpE0p', 3)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (5, N'Королёв ', N'Матвей', N'Вадимович', N'loginDEgco2018', N'nMr|ss', 2)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (6, N'Юдин ', N'Герман', N'Кондратович', N'loginDEwjg2018', N'9UfqWQ', 2)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (7, N'Беляева ', N'Анна', N'Вячеславовна', N'loginDEjbz2018', N'xIAWNI', 3)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (8, N'Беляев ', N'Валентин', N'Артёмович', N'loginDEmgu2018', N'0gC3bk', 1)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (9, N'Семёнов ', N'Герман', N'Дмитрьевич', N'loginDErdg2018', N'ni0ue0', 1)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (10, N'Шестаков ', N'Илья', N'Антонинович', N'loginDEjtv2018', N'f2ZaN6', 2)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (11, N'Власов ', N'Вадим', N'Васильевич', N'loginDEtfj2018', N'{{ksPn', 2)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (12, N'Савельев ', N'Арсений', N'Авксентьевич', N'loginDEpnb2018', N'{ADBdc', 3)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (13, N'Ефимов ', N'Руслан', N'Якунович', N'loginDEzer2018', N'5&R+zs', 3)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (14, N'Бурова ', N'Марфа', N'Федотовна', N'loginDEiin2018', N'y9l*b}', 2)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (15, N'Селезнёв ', N'Александр', N'Никитевич', N'loginDEqda2018', N'|h+r}I', 2)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (16, N'Кулакова ', N'Виктория', N'Георгьевна', N'loginDEbnj2018', N'#ИМЯ?', 2)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (17, N'Дорофеева ', N'Кира', N'Демьяновна', N'loginDEqte2018', N'dC8bDI', 2)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (18, N'Сафонова ', N'Нинель', N'Якововна', N'loginDEfeo2018', N'8cI7vq', 2)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (19, N'Ситникова ', N'София', N'Лукьевна', N'loginDEvni2018', N'e4pVIv', 2)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (20, N'Медведев ', N'Ириней', N'Геннадьевич', N'loginDEjis2018', N'A9K++2', 1)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (21, N'Суханова ', N'Евгения', N'Улебовна', N'loginDExvv2018', N'R1zh}|', 1)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (22, N'Игнатьев ', N'Владлен', N'Дамирович', N'loginDEadl2018', N'F&IWf4', 1)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (23, N'Ефремов ', N'Христофор', N'Владиславович', N'loginDEyzn2018', N'P1v24R', 2)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (24, N'Кошелев ', N'Ростислав', N'Куприянович', N'loginDEphn2018', N'F}jGsJ', 2)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (25, N'Галкина ', N'Тамара', N'Авксентьевна', N'loginDEdvk2018', N'NKNkup', 3)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (26, N'Журавлёва ', N'Вера', N'Арсеньевна', N'loginDEtld2018', N'c+CECK', 1)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (27, N'Савина ', N'Таисия', N'Глебовна', N'loginDEima2018', N'XK3sOA', 3)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (28, N'Иванов ', N'Яков', N'Мэлорович', N'loginDEyfe2018', N'4Bbzpa', 2)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (29, N'Лыткин ', N'Ким', N'Алексеевич', N'loginDEwqc2018', N'vRtAP*', 1)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (30, N'Логинов ', N'Федот', N'Святославович', N'loginDEgtt2018', N'7YD|BR', 1)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (31, N'Русакова ', N'Марина', N'Юлиановна', N'loginDEiwl2018', N'LhlmIl', 1)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (32, N'Константинов ', N'Пётр', N'Кондратович', N'loginDEyvi2018', N'22beR}', 3)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (33, N'Поляков ', N'Анатолий', N'Игоревич', N'loginDEtfz2018', N'uQY0ZQ', 2)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (34, N'Панфилова ', N'Василиса', N'Григорьевна', N'loginDEikb2018', N'*QkUxc', 3)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (35, N'Воробьёв ', N'Герман', N'Романович', N'loginDEdmi2018', N'HOGFbU', 2)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (36, N'Андреев ', N'Ростислав', N'Федосеевич', N'loginDEtlo2018', N'58Jxrg', 3)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (37, N'Бобров ', N'Агафон', N'Владимирович', N'loginDEsnd2018', N'lLHqZf', 3)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (38, N'Лапин ', N'Алексей', N'Витальевич', N'loginDEgno2018', N'4fqLiO', 3)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (39, N'Шестаков ', N'Авдей', N'Иванович', N'loginDEgnl2018', N'wdio{u', 2)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (40, N'Гаврилова ', N'Алина', N'Эдуардовна', N'loginDEzna2018', N'yz1iMB', 2)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (41, N'Жуков ', N'Юлиан', N'Валерьянович', N'loginDEsyh2018', N'&4jYGs', 1)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (42, N'Пономарёв ', N'Максим', N'Альвианович', N'loginDExex2018', N'rnh36{', 2)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (43, N'Зиновьева ', N'Мария', N'Лаврентьевна', N'loginDEdjm2018', N'KjI1JR', 1)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (44, N'Осипов ', N'Артём', N'Мэлорович', N'loginDEgup2018', N'36|KhF', 2)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (45, N'Лапин ', N'Вячеслав', N'Геласьевич', N'loginDEdat2018', N'ussd8Q', 3)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (46, N'Зуев ', N'Ириней', N'Вадимович', N'loginDEffj2018', N'cJP+HC', 2)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (47, N'Коновалова ', N'Агафья', N'Митрофановна', N'loginDEisp2018', N'dfz5Ii', 1)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (48, N'Исаев ', N'Дмитрий', N'Аристархович', N'loginDEfrp2018', N'6dcR|9', 1)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (49, N'Белозёрова ', N'Алевтина', N'Лаврентьевна', N'loginDEaee2018', N'5&qONH', 2)
+INSERT [dbo].[User] ([UserId], [Surname], [Name], [Patronymic], [Login], [Password], [RoleId]) VALUES (50, N'Самсонов ', N'Агафон', N'Максимович', N'loginDEthu2018', N'|0xWzV', 2)
+SET IDENTITY_INSERT [dbo].[User] OFF
+GO
+ALTER TABLE [dbo].[Order]  WITH CHECK ADD  CONSTRAINT [FK_Order_PickupPoint] FOREIGN KEY([OrderPickupPointId])
+REFERENCES [dbo].[PickupPoint] ([PickupPointId])
+GO
+ALTER TABLE [dbo].[Order] CHECK CONSTRAINT [FK_Order_PickupPoint]
+GO
+ALTER TABLE [dbo].[Order]  WITH CHECK ADD  CONSTRAINT [FK_Order_User] FOREIGN KEY([UserId])
+REFERENCES [dbo].[User] ([UserId])
+GO
+ALTER TABLE [dbo].[Order] CHECK CONSTRAINT [FK_Order_User]
+GO
+ALTER TABLE [dbo].[OrderProduct]  WITH CHECK ADD  CONSTRAINT [FK__OrderProd__Order__236943A5] FOREIGN KEY([OrderId])
+REFERENCES [dbo].[Order] ([OrderId])
+GO
+ALTER TABLE [dbo].[OrderProduct] CHECK CONSTRAINT [FK__OrderProd__Order__236943A5]
+GO
+ALTER TABLE [dbo].[OrderProduct]  WITH CHECK ADD  CONSTRAINT [FK__OrderProd__Produ__245D67DE] FOREIGN KEY([ProductArticleNumber])
+REFERENCES [dbo].[Product] ([ProductArticleNumber])
+GO
+ALTER TABLE [dbo].[OrderProduct] CHECK CONSTRAINT [FK__OrderProd__Produ__245D67DE]
+GO
+ALTER TABLE [dbo].[User]  WITH CHECK ADD  CONSTRAINT [FK_User_Role] FOREIGN KEY([RoleId])
+REFERENCES [dbo].[Role] ([RoleId])
+GO
+ALTER TABLE [dbo].[User] CHECK CONSTRAINT [FK_User_Role]
+GO
+ALTER TABLE [dbo].[OrderProduct]  WITH CHECK ADD  CONSTRAINT [CK_OrderProduct_ProductAmount] CHECK  (([ProductAmount]>(0)))
+GO
+ALTER TABLE [dbo].[OrderProduct] CHECK CONSTRAINT [CK_OrderProduct_ProductAmount]
+GO
